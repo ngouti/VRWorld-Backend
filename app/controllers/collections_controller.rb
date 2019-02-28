@@ -18,7 +18,7 @@ class CollectionsController < ApplicationController
 
     def create
         collection = Collection.create(collection_params)
-        
+        # image = Image.last
         
         render json: collection
     end
@@ -28,7 +28,7 @@ class CollectionsController < ApplicationController
     end
 
     def show 
-        showcollection = Collection.all.find(params[:id])
+        showcollection = Collection.all.find_by(user_id: params[:user_id])
             
         render json: showcollection
     end

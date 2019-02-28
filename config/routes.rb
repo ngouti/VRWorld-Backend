@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'relationships/follow_user'
   get 'relationships/unfollow_user'
 
+  match 'users/:id/images' => 'users#images', :via => [:get]
   match 'collections/:id/images' => 'collections#images', :via => [:get, :post]
   post ':username/follow_user', to: 'relationships#follow_user', as: :follow_user
   post ':username/unfollow_user', to: 'relationships#unfollow_user', as: :unfollow_user

@@ -4,18 +4,14 @@ class UsersController < ApplicationController
     skip_before_action :authenticate, only: [ :create, :current]
 
     
-
-    def followers
+    def images 
+        user = User.find(params[:id])
+        render json: user.images
     end
 
     def following
-        relationship = []
-        Follow.all.each do |follow|
-            if follow.follower_id === params[:id]
-                relationship << follow
-            end
-        end
-        render json: relationship, methods: [:following]
+       
+        render json: Follow.all, methods: [:following]
     end
 
     def create
@@ -42,7 +38,7 @@ class UsersController < ApplicationController
     end
     
     def user_params
-        params.permit(:username, :email, :password, :name, :profile_url)
+        params.permit(:username, :email, :password, :name, :profile_url, image_ids:[])
     end
     
     def define_selected_user

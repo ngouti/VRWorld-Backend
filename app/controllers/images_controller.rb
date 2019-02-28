@@ -4,12 +4,13 @@ class ImagesController < ApplicationController
 
     def create
         image = Image.create(image_params)
-
+        image.users << current_user
         render json: image
     end
 
     def index
         render json: Image.all
+        
     end
 
     def show 
@@ -41,6 +42,6 @@ class ImagesController < ApplicationController
     end
 
     def image_params
-        params.require(:image).permit(:img_url, :user_id)
+        params.require(:image).permit(:img_url, user_ids:[])
     end
 end
