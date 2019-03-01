@@ -39,8 +39,9 @@ class CollectionsController < ApplicationController
     end
 
     def destroy
-        current_collection.destroy
-        render json: current_collection
+        collection = Collection.all.find_by(image_id: params[:id])
+        collection.destroy
+        render json: collection
     end
 
     def define_current_collection
