@@ -1,8 +1,4 @@
 class CommentsController < ApplicationController
-    
-    
-    
-    
 
     def create
         @image = Image.find(params[:image_id])
@@ -14,7 +10,6 @@ class CommentsController < ApplicationController
 
     def index
         render json: Comment.all
-        
     end
 
     def update
