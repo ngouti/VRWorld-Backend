@@ -20,17 +20,7 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def current_image
-        begin 
-            method, token = request.headers['Authorization'].split(' ')
-            payload, header = decode_token(token)
-            
-            Event.find(payload["image_id"])
-        rescue JWT::DecodeError
-            nil
-        end
-    end
-
+    
     def authenticate
 
         if !current_user

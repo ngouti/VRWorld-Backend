@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
     before_action :define_selected_user
 
-    skip_before_action :authenticate, only: [ :create, :current]
+    skip_before_action :authenticate, only: [ :create, :current, :images]
 
-    
+    def imagesandcomment
+        user = User.find(params[:id])
+        images = user.images
+        comments = images.map do |image| image.comments end
+        render json: {images: images, comments:  comments}
+     end
+
     def images 
         user = User.find(params[:id])
         render json: user.images
