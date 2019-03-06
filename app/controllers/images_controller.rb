@@ -1,5 +1,5 @@
 class ImagesController < ApplicationController
-    before_action :define_current_image
+    # before_action :define_current_image
     skip_before_action :authenticate, only: [ :create, :index ]
 
     def create
@@ -25,8 +25,13 @@ class ImagesController < ApplicationController
     end
 
     def destroy
-        current_image.destroy
-        render json: current_image
+        image = Image.all.find(params[:id])
+        if image.creator.id == current_user.id
+            image.destroy
+        render json: image
+        else
+            render json: { error: true, message: 'You don\'t own this image.'}
+        end
     end
 
     def define_current_image
@@ -37,11 +42,12 @@ class ImagesController < ApplicationController
         end
     end
 
+
     def current_image
         @current_image
     end
 
     def image_params
-        params.require(:image).permit(:img_url, user_ids:[])
+        params.require(:image).permit(:img_url, :creator_id, user_ids:[])
     end
 end

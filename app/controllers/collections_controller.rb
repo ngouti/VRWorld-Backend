@@ -1,5 +1,5 @@
 class CollectionsController < ApplicationController
-    # before_action :define_current_collection
+    before_action :current_user 
 
     def images
         collection = []
@@ -33,13 +33,8 @@ class CollectionsController < ApplicationController
         render json: showcollection
     end
 
-    def update
-        current_collection.update(collection_params)
-        render json: current_collection
-    end
-
     def destroy
-        collection = Collection.all.find_by(image_id: params[:id])
+        collection = Collection.all.find_by(user_id: current_user.id, image_id: params[:id])
         collection.destroy
         render json: collection
     end

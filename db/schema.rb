@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_24_233032) do
+ActiveRecord::Schema.define(version: 2019_03_06_010652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2019_02_24_233032) do
     t.datetime "updated_at", null: false
     t.index ["image_id"], name: "index_collections_on_image_id"
     t.index ["user_id"], name: "index_collections_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "image_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["image_id"], name: "index_comments_on_image_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -36,8 +46,10 @@ ActiveRecord::Schema.define(version: 2019_02_24_233032) do
 
   create_table "images", force: :cascade do |t|
     t.string "img_url"
+    t.integer "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_images_on_creator_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -52,4 +64,6 @@ ActiveRecord::Schema.define(version: 2019_02_24_233032) do
 
   add_foreign_key "collections", "images"
   add_foreign_key "collections", "users"
+  add_foreign_key "comments", "images"
+  add_foreign_key "comments", "users"
 end

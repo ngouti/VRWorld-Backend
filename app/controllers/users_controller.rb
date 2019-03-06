@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
     before_action :define_selected_user
 
-    skip_before_action :authenticate, only: [ :create, :current]
+    skip_before_action :authenticate, only: [ :create, :current, :images]
 
     
     def images 

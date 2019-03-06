@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
     has_many :collections
     has_many :images, through: :collections
+
+    has_many :created_images, :class_name => "Images", :foreign_key => :creator_id
     
 
     has_many :follower_relationships, foreign_key: :following_id, class_name: 'Follow'

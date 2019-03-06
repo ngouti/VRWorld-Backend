@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   get 'relationships/follow_user'
   get 'relationships/unfollow_user'
 
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
   post ':username/follow_user', to: 'relationships#follow_user', as: :follow_user
   post ':username/unfollow_user', to: 'relationships#unfollow_user', as: :unfollow_user
   get 'users/following/:id', to: 'users#following', as: :following
+  # get 'imagesandusers', to: 'images#imagesandusers', as: :imagesanduser
   resources :relationships
   resources :collections
   resources :images
