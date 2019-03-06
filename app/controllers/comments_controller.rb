@@ -17,6 +17,11 @@ class CommentsController < ApplicationController
         
     end
 
+    def update
+        comment = Comment.all.find(params[:id])
+        comment.update(comment_params)
+        render json: comment
+    end
     def show 
         showcomments = Comment.all.find(params[:id])
             
